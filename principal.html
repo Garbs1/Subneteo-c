@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUBNETEO</title>
+</head>
+<body>
+    <h2>SUBNETEO</h2>
+    <h3>IP</h3>
+      <p><input id="1"> . 
+      <input id="2"> . 
+      <input id="3"> . 
+      <input id="4"> </p> 
+    <h3>NUMERO DE REDES</h3> 
+      <input id="redes">   
+      <p id="salto">Salto de: </p>
+      <p id="hosts">Numero de Host por Subred:</p>
+      <p id="sobrante">Subredes sobrantes:</p>
+    
+    <button onclick="calcular()">CALCULAR</button>
+</body>
+<script>
+    const calcular=()=>{
+        let ip1= document.getElementById("1").value;
+        let ip2= document.getElementById("2").value;
+        let ip3= document.getElementById("3").value;
+        let ip4= document.getElementById("4").value;
+        let redes= document.getElementById("redes").value;
+        var mascara=[128,192,224,240,248,252,254]
+
+        if(ip2==0 && ip3==0 && ip4==0){
+            var exponente=0;
+            for(var i=1; i<redes; i++){
+                var rexp= Math.pow(2,i);
+
+                if(rexp>=redes){
+                    exponente++;
+                    break;
+                }
+                exponente++;
+            }
+        var mascaranueva= mascara[exponente-1];
+        var salto= 256-mascaranueva;
+        var n= 24-exponente;
+        var host= Math.pow(2,n)-2;
+        document.getElementById("salto").innerHTML= "Salto de: "+salto+" en "+salto;
+        document.getElementById("hosts").innerHTML= "Numero de Host por Subred: "+host;
+        var sobrantes= rexp-redes;
+        document.getElementById("sobrante").innerHTML= "Subredes sobrantes: "+sobrantes;
+        }
+        else if(ip3==0 && ip4==0){
+            var exponente=0;
+            for(var i=1; i<redes; i++){
+                var rexp= Math.pow(2,i);
+
+                if(rexp>=redes){
+                    exponente++;
+                    break;
+                }
+                exponente++;
+            }
+        var mascaranueva= mascara[exponente-1];
+        var salto= 256-mascaranueva;
+        var n= 16-exponente;
+        var host= Math.pow(2,n)-2;
+        document.getElementById("salto").innerHTML= "Salto de: "+salto+" en "+salto;
+        document.getElementById("hosts").innerHTML= "Numero de Host por Subred: "+host;
+        var sobrantes= rexp-redes;
+        document.getElementById("sobrante").innerHTML= "Subredes sobrantes: "+sobrantes;
+        }
+        else if(ip4==0){
+            var exponente=0;
+            for(var i=1; i<redes; i++){
+                var rexp= Math.pow(2,i);
+
+                if(rexp>=redes){
+                    exponente++;
+                    break;
+                }
+                exponente++;
+            }
+        var mascaranueva= mascara[exponente-1];
+        var salto= 256-mascaranueva;
+        var n= 8-exponente;
+        var host= Math.pow(2,n)-2;
+        document.getElementById("salto").innerHTML= "Salto de: "+salto+" en "+salto;
+        document.getElementById("hosts").innerHTML= "Numero de Host por Subred: "+host;
+        var sobrantes= rexp-redes;
+        document.getElementById("sobrante").innerHTML= "Subredes sobrantes: "+sobrantes;
+        }
+        
+    
+    }
+</script>
+
+</html>
